@@ -14,6 +14,7 @@ public class UserController {
     @PostMapping(path= "/signup", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Object> signup(@RequestBody User user)
     {
-        return null;
+//        1 Save this User entity in table(DB)
+        return ResponseEntity.ok(user);
     }
 }

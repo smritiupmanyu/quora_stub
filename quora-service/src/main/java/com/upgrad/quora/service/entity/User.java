@@ -1,5 +1,8 @@
 package com.upgrad.quora.service.entity;
 
+import lombok.Data;
+
+@Data
 public class User {
     String id;
     String uuid;
