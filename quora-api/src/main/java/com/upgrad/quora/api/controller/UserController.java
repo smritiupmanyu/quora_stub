@@ -1,6 +1,6 @@
 package com.upgrad.quora.api.controller;
 
-import com.upgrad.quora.service.dao.UserDAO;
+import com.upgrad.quora.api.service.UserService;
 import com.upgrad.quora.service.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    UserDAO userDAO;
+    UserService userService;
     @PostMapping(path= "/signup", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Object> signup(@RequestBody User user)
     {
 //        1 Save this User entity in table(DB)
-        User savedUser = userDAO.save(user);
-        return ResponseEntity.ok(savedUser);
+        userService.save(user);
+        return ResponseEntity.ok(user);
     }
 }
