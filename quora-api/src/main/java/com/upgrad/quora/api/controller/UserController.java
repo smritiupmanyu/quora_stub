@@ -2,6 +2,7 @@ package com.upgrad.quora.api.controller;
 
 import com.upgrad.quora.api.service.UserService;
 import com.upgrad.quora.service.entity.User;
+import com.upgrad.quora.service.exception.SignUpRestrictedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +19,12 @@ public class UserController {
     @PostMapping(path= "/signup", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Object> signup(@RequestBody User user)
     {
-//        1 Save this User entity in table(DB)
-        userService.save(user);
-        return ResponseEntity.ok(user);
+        try {
+            userService.save(user);
+            return ResponseEntity.ok(user);
+        } catch (SignUpRestrictedException exception){
+            return ResponseEntity.ok(exception.getErrorMessage());
+        }
+
     }
 }
